@@ -2,6 +2,7 @@
 import React from "react";
 import QuoteCard from "./QuoteCard";
 
+
 // An array of objects
 const quotes = [
     {
