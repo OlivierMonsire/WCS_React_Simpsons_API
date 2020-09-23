@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar";
-import QuoteList from "./components/QuoteList";
 import Axios from "axios";
 import DisplayQuote from "./components/DisplayQuote";
+import  "./assets/Loader.css"
 
 const sampleQuote = {
     id: 1,
@@ -20,9 +20,15 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            quote: sampleQuote
+            quote: null,
+            loading: true
         };
         this.getQuote = this.getQuote.bind(this);
+    }
+
+    componentDidMount() {
+        this.getQuote()
+        this.setState({loading: false})
     }
 
     getQuote() {
@@ -42,8 +48,17 @@ class App extends React.Component {
         return (
             <div className="App">
                 <Navbar/>
-                <DisplayQuote quote={this.state.quote}/>
-                <button type="button" onClick={this.getQuote}>Get quote</button>
+                {
+                    this.state.quote
+                        ? <div>
+                            <DisplayQuote quote={this.state.quote}/>
+                            <button type="button" onClick={this.getQuote}>Get quote</button>
+                        </div>
+                        : <div className="loading">
+                            <div className="loader"/>
+                        </div>
+                }
+
             </div>
         );
     }
